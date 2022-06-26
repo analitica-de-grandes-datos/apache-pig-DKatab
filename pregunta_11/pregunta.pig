@@ -32,4 +32,7 @@ $ pig -x local -f pregunta.pig
 
         >>> Escriba su respuesta a partir de este punto <<<
 */
-
+table = LOAD './data.csv' using PigStorage(',') AS (id:int,  name:chararray, lastname:chararray,   date:chararray,  color:chararray, other:int);
+sub_table = FOREACH table GENERATE UCFIRST(lastname), UPPER(lastname), LOWER(lastname);
+order_table = ORDER sub_table BY $0;
+STORE order_table INTO 'output/' using PigStorage(',');

@@ -20,7 +20,6 @@ lines = LOAD './data.tsv' USING PigStorage('\t')
     );
 
 
-
-numeros = FOREACH lines GENERATE FLATTEN(TOKENIZE(num)) AS numeros;
-order_by_data = ORDER numeros BY num LIMIT 5;
+order_by_data = ORDER lines BY letra, num;
 STORE order_by_data INTO 'output' USING PigStorage(',');
+
